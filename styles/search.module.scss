@@ -1,0 +1,9 @@
+.searchWrapper {
+  display: flex;
+  gap: 10px;
+  & input {
+    color: #000000;
+    background-color: #ffffff;
+    padding: 5px;
+  }
+}

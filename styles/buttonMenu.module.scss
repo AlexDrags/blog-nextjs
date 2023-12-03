@@ -1,0 +1,19 @@
+.buttonMenu {
+  display: none;
+
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  min-width: 25px;
+  min-height: 25px;
+  background-color: #ffffff;
+  color: #000000;
+  z-index: 2;
+}
+
+@media (max-width: 420px) {
+  .buttonMenu {
+    display: flex;
+  }
+}

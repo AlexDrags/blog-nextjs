@@ -1,0 +1,10 @@
+.footer {
+  min-height: 80px;
+  border-top: 1px solid #ffffff;
+  display: flex;
+
+  & p {
+    align-self: center;
+    margin: 0 auto;
+  }
+}
