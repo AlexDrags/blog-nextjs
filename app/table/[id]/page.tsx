@@ -6,6 +6,8 @@ import { getPostByIdDb } from '@/app/lib/dbData';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const post = await getPostByIdDb(params.id);
+  console.log(typeof params.id);
+
   return (
     <>
       <h1>{post.postname}</h1>

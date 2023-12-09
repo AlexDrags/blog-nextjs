@@ -9,7 +9,6 @@ export async function getDbData() {
   try {
     const result = await sql`SELECT * FROM posts`;
     return result.rows;
-    //return result;
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
@@ -33,6 +32,7 @@ export async function getPostByIdDb(id: string) {
     console.log('It result will be always');
   }
 }
+
 export async function removePostByIdDb(id: string) {
   unstable_noStore();
   try {
@@ -42,5 +42,20 @@ export async function removePostByIdDb(id: string) {
   } finally {
     revalidatePath('/table');
     redirect('/table');
+  }
+}
+
+export async function searchPost(query: string) {
+  unstable_noStore();
+  try {
+    const filterPost = await sql`SELECT
+    *
+  FROM posts
+  WHERE
+  posts.postname ILIKE ${`%${query}%`}`;
+    return filterPost.rows;
+  } catch (error) {
+    console.error('Database error: ', error);
+    throw new Error('Failed to fetch invoices.');
   }
 }
