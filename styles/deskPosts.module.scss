@@ -4,6 +4,12 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+.wrapperAvatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .itemList {
   overflow-y: auto;
   display: flex;
@@ -12,4 +18,12 @@
   justify-content: space-between;
   border-top: 1px solid #ffffff;
   border-bottom: 1px solid #ffffff;
+}
+
+.pre {
+  font-size: 16px;
+}
+
+.avatar {
+  border-radius: 50%;
 }

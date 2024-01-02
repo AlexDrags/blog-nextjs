@@ -11,17 +11,34 @@
     text-align: center;
   }
 
-  & * {
+  & [type='text'] {
+    color: #000000;
+    background-color: #ffffff;
+    padding: 5px;
     width: 100%;
   }
 
-  & [type='text'] {
+  & .dropbox {
+    min-width: 250px;
+    min-height: 150px;
+    background-color: #d3d3d3;
+  }
+
+  & .authorField {
+    width: 30%;
+    align-self: flex-start;
+  }
+
+  & [type='email'] {
+    align-self: flex-start;
+    width: 30%;
     color: #000000;
     background-color: #ffffff;
     padding: 5px;
   }
 
   & textarea {
+    width: 100%;
     color: #000000;
     background-color: #ffffff;
     padding: 5px;

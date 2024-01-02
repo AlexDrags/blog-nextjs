@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 import { Metadata } from 'next';
+import { PrismaClient } from '@prisma/client';
 
 export const metadata: Metadata = {
   title: 'Main blog page',

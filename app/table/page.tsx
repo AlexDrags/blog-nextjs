@@ -1,3 +1,4 @@
+// import { getDbData } from '@/app/lib/dbData';
 import { getDbData, searchPost } from '@/app/lib/dbData';
 import Search from '@/components/Search';
 import clas from '@/styles/buttonCreate.module.scss';
@@ -7,15 +8,19 @@ interface DB {
   db: any;
 }
 interface PostProps {
-  id: string;
-  postname: string;
-  posttext: string;
-  date: string;
-  time: string;
+  id: bigint;
+  post_author: string;
+  email: string;
+  post_title: string;
+  post_message: string;
+  image: any;
+  date: any;
+  time: any;
 }
 export default async function Page({ searchParams }: { searchParams: { query: string } }) {
   const db: any = await getDbData();
-  const searchRes = await searchPost(`${searchParams.query}`);
+  const searchRes: any = await searchPost(`${searchParams.query}`);
+  //console.log(`${db[0].time}`.split(' ').slice(4, 5).join(' '));
 
   return (
     <>
@@ -27,35 +32,35 @@ export default async function Page({ searchParams }: { searchParams: { query: st
         </Link>
       </div>
       <div>
-        <ul>
-          {db.map((item: PostProps) => {
-            const { id, postname, date, time } = item;
-            return (
-              <li className={clasDesk.itemList} key={id}>
-                <Link href={`/table/${id}`}>{postname}</Link>
-                <p>
-                  {date} {time}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      <div>
         <h3>Seatch result:</h3>
         <ul>
           {searchRes &&
-            searchRes.map((item) => {
-              const { id, postname, date, time } = item;
+            searchRes.map((item: PostProps) => {
+              const { id, post_title, time, date } = item;
               return (
-                <li className={clasDesk.itemList} key={id}>
-                  <Link href={`/table/${id}`}>{postname}</Link>
+                <li className={clasDesk.itemList} key={`${id}`}>
+                  <Link href={`/table/${id}`}>{post_title}</Link>
                   <p>
-                    {date} {time}
+                    {`${date}`.split(' ').slice(0, 3).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
                   </p>
                 </li>
               );
             })}
+        </ul>
+      </div>
+      <div>
+        <ul>
+          {db.map((item: PostProps) => {
+            const { id, post_title, time, date } = item;
+            return (
+              <li className={clasDesk.itemList} key={`${id}`}>
+                <Link href={`/table/${id}`}>{post_title}</Link>
+                <p>
+                  {`${date}`.split(' ').slice(0, 3).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
+                </p>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
