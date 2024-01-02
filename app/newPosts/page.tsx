@@ -1,4 +1,5 @@
 'use client';
+import { decode as base64_decode, encode as base64_encode } from 'base-64';
 import SubmitNutton from '../ui/submitButton';
 import Image from 'next/image';
 import clas from '@/styles/createForm.module.scss';
@@ -8,8 +9,23 @@ import { PrismaClient } from '@prisma/client';
 import FileField from '@/components/FileField';
 export default function Page() {
   const prisma = new PrismaClient();
-  const [src, setSrc] = useState<string | ArrayBuffer | null>('');
-  const updateCreatePosts = createPosts.bind(null, `${src}`);
+  const [src, setSrc] = useState('');
+  const updateCreatePosts = createPosts.bind(null, src);
+
+  const compressImage = async (file: File, { quality = 1, type = file.type }) => {
+    // Get as image data
+    const imageBitmap = await createImageBitmap(file);
+
+    // Draw to canvas
+    const canvas = document.createElement('canvas');
+    canvas.width = imageBitmap.width;
+    canvas.height = imageBitmap.height;
+    const ctx = canvas.getContext('2d');
+    ctx?.drawImage(imageBitmap, 0, 0);
+
+    // Turn into Blob
+    return await new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+  };
 
   return (
     <form className={clas.form} action={updateCreatePosts} id='formCreate' name='formCreate'>
@@ -30,13 +46,40 @@ export default function Page() {
           if (!evt.target.files) return;
           const file = evt.target.files[0];
           const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = function () {
-            const uni = reader.result;
-            setSrc(uni);
-            console.log(src);
+          const newF = new File([evt.target.files[0]], evt.target.value);
+          const compressImage = async (file: File, { quality = 1, type = file.type }) => {
+            // Get as image data
+            const imageBitmap = await createImageBitmap(file);
+
+            // Draw to canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = imageBitmap.width;
+            canvas.height = imageBitmap.height;
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(imageBitmap, 0, 0);
+
+            // Turn into Blob
+            const blob: any = await new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+
+            // Turn Blob into File
+            return new File([blob], file.name, {
+              type: blob.type,
+            });
           };
-          console.log(`${src}`);
+          const compressedFile = await compressImage(file, {
+            quality: 0.5,
+            type: 'image/jpeg',
+          });
+          //console.log(compressedFile);
+
+          //reader.readAsDataURL(file);
+          reader.readAsDataURL(compressedFile);
+          reader.onload = async function () {
+            const uni = reader.result;
+            setSrc(`${uni}`);
+            //console.log(m);
+          };
+          console.log(src);
           reader.onerror = function () {
             console.log(reader.error);
           };

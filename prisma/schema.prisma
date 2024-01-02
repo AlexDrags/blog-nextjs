@@ -40,17 +40,6 @@ model invoices {
   date        DateTime @db.Date
 }
 
-model posts {
-  id           BigInt    @id @default(autoincrement())
-  post_author  String    @db.VarChar(50)
-  email        String    @db.VarChar(50)
-  post_title   String    @db.VarChar(50)
-  post_message String    @db.VarChar(1000)
-  image        String?
-  time         DateTime? @default(dbgenerated("CURRENT_TIME")) @db.Timetz(6)
-  date         DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
-}
-
 model revenue {
   month   String @unique @db.VarChar(4)
   revenue Int
@@ -61,4 +50,15 @@ model users {
   name     String @db.VarChar(255)
   email    String @unique
   password String
+}
+
+model posts {
+  id           BigInt    @id @default(autoincrement())
+  post_author  String    @db.VarChar(50)
+  email        String    @db.VarChar(50)
+  post_title   String    @db.VarChar(50)
+  post_message String    @db.VarChar(1000)
+  image        String?
+  time         DateTime? @default(dbgenerated("CURRENT_TIME")) @db.Timetz(6)
+  date         DateTime? @default(dbgenerated("CURRENT_DATE")) @db.Date
 }
