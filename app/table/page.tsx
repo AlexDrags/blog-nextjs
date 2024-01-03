@@ -41,7 +41,7 @@ export default async function Page({ searchParams }: { searchParams: { query: st
                 <li className={clasDesk.itemList} key={`${id}`}>
                   <Link href={`/table/${id}`}>{post_title}</Link>
                   <p>
-                    {`${date}`.split(' ').slice(0, 3).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
+                    {`${date}`.split(' ').slice(0, 4).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
                   </p>
                 </li>
               );
@@ -56,7 +56,7 @@ export default async function Page({ searchParams }: { searchParams: { query: st
               <li className={clasDesk.itemList} key={`${id}`}>
                 <Link href={`/table/${id}`}>{post_title}</Link>
                 <p>
-                  {`${date}`.split(' ').slice(0, 3).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
+                  {`${date}`.split(' ').slice(0, 4).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
                 </p>
               </li>
             );

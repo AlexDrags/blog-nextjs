@@ -121,7 +121,7 @@ export async function searchPost(query: string) {
   unstable_noStore();
   try {
     const filterPost = await prisma.$queryRaw`
-    SELECT * FROM posts WHERE posts.post_title ILIKE ${`%${query}%`}
+    SELECT * FROM posts WHERE posts.post_title iLIKE ${`%${query}%`}
     `;
     console.log(filterPost);
     if (filterPost) {

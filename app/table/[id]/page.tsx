@@ -12,19 +12,20 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className={clasDesk.pre}>
-        <h1>{post_title}</h1>
-        <p>{post_message}</p>
-      </div>
       <div className={clasDesk.wrapper}>
         <div className={clasDesk.wrapperAvatar}>
           {image && <Image className={clasDesk.avatar} src={image} width={80} height={80} alt='alt.' />}
           <cite>{`${post_author}`}</cite>
         </div>
         <p>
-          {`${date}`.split(' ').slice(0, 3).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
+          {`${date}`.split(' ').slice(0, 4).join(' ')} {`${time}`.split(' ').slice(4, 5).join(' ')}
         </p>
       </div>
+      <div className={clasDesk.pre}>
+        <h1>{post_title}</h1>
+        <p>{post_message}</p>
+      </div>
+
       <div className={clasDesk.wrapper}>
         <RemoveButton removeId={params.id} />
         <Link className={clas.buttonCreate} href={'/table'}>
